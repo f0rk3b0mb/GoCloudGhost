@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	azure "github.com/f0rk3b0mb/GoCloudGhost/azure/blob"
+	management "github.com/f0rk3b0mb/GoCloudGhost/azure/enum"
 	"github.com/spf13/cobra"
 )
 
@@ -13,9 +15,16 @@ var rootCmd = &cobra.Command{
 	Long:  `GoCloudGhost allows you to authenticate with cloud and enumerate when testing cloud security.`,
 }
 
+func init() {
+	// Register blob command and its subcommands
+	rootCmd.AddCommand(azure.BlobCmd)
+	rootCmd.AddCommand(management.MgmtCmd)
+}
+
 func main() {
 	if err := rootCmd.Execute(); err != nil {
 		log.Println("Error:", err)
 		os.Exit(1)
 	}
+
 }
