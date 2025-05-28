@@ -1,7 +1,9 @@
 # GoCloudGhost
 
 
-**GoCloudGhost** is a modular enumeration tool written in Go, focused on enumerating Cloud resources during security assessments. It currently ony supports azure. There will be more cloud  options  in the future.
+**GoCloudGhost** is a modular enumeration tool written in Go, focused on enumerating Cloud resources during security assessments. It currently ony supports azure. There will be more cloud provider support  in the future.
+
+I developed it during a recent cloud penetration testing exercise where i had to do most of these manually.
 
 ## ✨ Features
 
@@ -90,3 +92,5 @@ http://www.apache.org/licenses/
 
 ## 📫 Contact
 Feel free to contribute or raise issues.
+
+Reach out @f0rk3b0mb on twitter
