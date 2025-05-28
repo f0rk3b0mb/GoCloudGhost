@@ -59,6 +59,8 @@ GoCloudGhost blob download --account <storage-account-name> --key <shared-key> -
 ## 🔧 Installation
 Clone the repository:
 
+Youll need to have the golang compiler installed and in your PATH
+
 ``` bash
 git clone https://github.com/f0rk3b0mb/GoCloudGhost.git
 cd GoCloudGhost
