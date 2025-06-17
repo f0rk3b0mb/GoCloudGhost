@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	azure "github.com/f0rk3b0mb/GoCloudGhost/azure/blob"
-	management "github.com/f0rk3b0mb/GoCloudGhost/azure/enum"
+	azure "github.com/f0rk3b0mb/GoCloudGhost/azure"
+	gcp "github.com/f0rk3b0mb/GoCloudGhost/gcp"
 	"github.com/spf13/cobra"
 )
 
@@ -17,8 +17,8 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	// Register blob command and its subcommands
-	rootCmd.AddCommand(azure.BlobCmd)
-	rootCmd.AddCommand(management.MgmtCmd)
+	rootCmd.AddCommand(azure.AzureCmd)
+	rootCmd.AddCommand(gcp.GcpCmd)
 }
 
 func main() {

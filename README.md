@@ -17,49 +17,77 @@ I developed it during a recent cloud penetration testing exercise where i had to
 
 ## 📦 Modules
 
-### Management API Enumeration
+### Azure Management API Enumeration
 
 ### Enumerate Subscription info
 
 ```bash
-GoCloudGhost management --token <jwt-accesss-key> --subscriptions
+GoCloudGhost azure management --token <jwt-accesss-key> --subscriptions
 ```
 
 ### Enumerate Storage Accounts
 
 ```bash
-GoCloudGhost management --subscription <subscription-id> --token <jwt-accesss-key>
+GoCloudGhost azure management --subscription <subscription-id> --token <jwt-accesss-key>
 ```
 
 ### Enumerate Resource Groups
 
 ```bash
-GoCloudGhost management --subscription <sunscription-id> --token <jwt-accesss-key> --groups
+GoCloudGhost  azure management --subscription <sunscription-id> --token <jwt-accesss-key> --groups
 ```
 
 ### Enumerate Role Assignments 
 
 ```bash
-GoCloudGhost management --subscription <sunscription-id> --token <jwt-accesss-key> --roles
+GoCloudGhost azure management --subscription <sunscription-id> --token <jwt-accesss-key> --roles
 ```
 
-### Blob Storage Enumeration
+### Blob Storage Enumeration 
 
 ```bash
-GoCloudGhost blob list --account <storage-account-name> --key <shared-key> --container <container-name>
+GoCloudGhost azure blob list --account <storage-account-name> --key <shared-key> --container <container-name>
 ```
 
 ### Blob Storage Item Download
 
 ```bash
-GoCloudGhost blob download --account <storage-account-name> --key <shared-key> --container <container-name>
+GoCloudGhost azure blob download --account <storage-account-name> --key <shared-key> --container <container-name>
 
 ```
+
+### GCP Api Enumeration
+
+### List GCP Compute Instances
+
+```bash
+GoCloudGhost gcp list compute --token <oauth-token> --project-id <project-id>
+
+```
+
+### List GCP Storage Buckets
+
+```bash
+GoCloudGhost gcp list bucket --token <oauth-token> --project-id <project-id>
+
+```
+
+
+### Enumrate GCP Token Permission
+
+```bash
+GoCloudGhost gcp enum --token <ouath-token>  --project-id <project-id>
+
+```
+
+
 
 ## 🔧 Installation
 Clone the repository:
 
 Youll need to have the golang compiler installed and in your PATH
+
+Install compiler from [https://go.dev/doc/install](https://go.dev/doc/install)
 
 ``` bash
 git clone https://github.com/f0rk3b0mb/GoCloudGhost.git
@@ -68,7 +96,7 @@ cd GoCloudGhost
 Build the binary:
 
 ```bash
-go build -o GoCloudGhost
+go build -o bin/GoCloudGhost
 ```
 
 ## 🛡️ Disclaimer
@@ -80,11 +108,17 @@ This tool is intended for authorized testing and educational purposes only. Ensu
 
 ✅ Azure Management API enumeration
 
- AKS, App Services, Key Vault discovery
+✅ Gcp Token Permission
 
- Azure role/permission auditing
+✅ Gcp Compute and Stoage bucker enumeration
 
- Support for other cloud providers
+Gcp Sercive Account Token Impersonate
+
+AKS, App Services, Key Vault discovery
+
+Azure role/permission auditing
+
+Support for other cloud providers
 
 
 

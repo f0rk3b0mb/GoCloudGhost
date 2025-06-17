@@ -1,4 +1,4 @@
-package azure
+package blob
 
 import (
 	"github.com/spf13/cobra"
