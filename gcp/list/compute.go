@@ -24,7 +24,7 @@ var ComputeCmd = &cobra.Command{
 			fmt.Println("Error: --project-id is required")
 			return
 		}
-		run(token, project_id)
+		ListComputeResources(token, project_id)
 	},
 }
 
@@ -82,10 +82,4 @@ func ListComputeResources(token string, projectID string) {
 	} else {
 		fmt.Printf("Failed to retrieve compute resources. Status code: %d ,  token is invalid or expired\n", resp.StatusCode)
 	}
-}
-
-func run(token string, projectID string) {
-	// This function would be called when the Compute command is executed
-	// It would call ListComputeResources with the provided token and projectID
-	ListComputeResources(token, projectID)
 }

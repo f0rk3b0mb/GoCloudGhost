@@ -12,4 +12,5 @@ var ListCmd = &cobra.Command{
 func init() {
 	ListCmd.AddCommand(ComputeCmd)
 	ListCmd.AddCommand(BucketCmd)
+	ListCmd.AddCommand(TokenCmd)
 }
