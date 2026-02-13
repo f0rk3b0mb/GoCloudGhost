@@ -6,9 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 )
 
@@ -18,23 +21,37 @@ var MgmtCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		token, _ := cmd.Flags().GetString("token")
 		subscriptionID, _ := cmd.Flags().GetString("subscription")
-		enumSubs, _ := cmd.Flags().GetBool("subscriptions")
+		//enumSubs, _ := cmd.Flags().GetBool("subscriptions")
 		enumGroups, _ := cmd.Flags().GetBool("groups")
 		enumRoles, _ := cmd.Flags().GetBool("roles")
 		enumPolicies, _ := cmd.Flags().GetBool("policies")
 		enumStorage, _ := cmd.Flags().GetBool("storage")
 
+		//check token in .env file
 		if token == "" {
-			return fmt.Errorf("--token is required")
-		}
-
-		if enumSubs {
-			fmt.Println("Enumerating subscriptions...")
-			if err := enumerateSubscriptions(token); err != nil {
-				return err
+			// Try to read token from .env file
+			err := godotenv.Load()
+			if err != nil {
+				log.Fatal("Error loading .env file")
 			}
+			tokenEnv := os.Getenv("ACCESS_TOKEN")
+			if tokenEnv == "" {
+				return fmt.Errorf("Azure access token is required. Provide it via --token flag or set AZURE_TOKEN in .env file")
+			}
+			token = tokenEnv
 		}
 
+		//if enumSubs {
+		//	fmt.Println("Enumerating subscriptions...")
+		//	if err := enumerateSubscriptions(token); err != nil {
+		//		return err
+		//	}
+		//}
+
+		//load subscription ID from .env if not provided via flag
+		if subscriptionID == "" {
+			subscriptionID = os.Getenv("AZURE_SUBSCRIPTION_ID")
+		}
 		if subscriptionID != "" {
 			if enumGroups {
 				fmt.Println("Enumerating resource groups...")
@@ -67,7 +84,10 @@ var MgmtCmd = &cobra.Command{
 			}
 		}
 
-		if !enumSubs && !enumGroups && !enumRoles && !enumPolicies && !enumStorage {
+		//if !enumSubs && !enumGroups && !enumRoles && !enumPolicies && !enumStorage {
+		//	return fmt.Errorf("No enumeration option selected. Use --subscriptions, --groups, --roles, or --policies")
+		//}
+		if !enumGroups && !enumRoles && !enumPolicies && !enumStorage {
 			return fmt.Errorf("No enumeration option selected. Use --subscriptions, --groups, --roles, or --policies")
 		}
 
@@ -76,44 +96,13 @@ var MgmtCmd = &cobra.Command{
 }
 
 func init() {
-	MgmtCmd.Flags().String("token", "", "Azure access token (required)")
-	MgmtCmd.Flags().String("subscription", "", "Azure subscription ID (optional)")
-	MgmtCmd.Flags().Bool("subscriptions", false, "Enumerate subscriptions")
-	MgmtCmd.Flags().Bool("groups", false, "Enumerate resource groups (requires --subscription)")
-	MgmtCmd.Flags().Bool("roles", false, "Enumerate role assignments (requires --subscription)")
+	MgmtCmd.Flags().String("token", "", "Azure access token (can also be set via AZURE_TOKEN in .env file)")
+	MgmtCmd.Flags().String("subscription", "", "Azure subscription ID (can also be set via AZURE_SUBSCRIPTION_ID in .env file)")
+	//MgmtCmd.Flags().Bool("subscriptions", false, "Enumerate subscriptions")
+	MgmtCmd.Flags().Bool("groups", false, "Enumerate resource groups (requires subscription)")
+	MgmtCmd.Flags().Bool("roles", false, "Enumerate role assignments (requires subscription)")
 	MgmtCmd.Flags().Bool("policies", false, "Enumerate policy definitions")
 	MgmtCmd.Flags().Bool("storage", false, "Enumerate Storage accounts")
-	MgmtCmd.MarkFlagRequired("token")
-}
-
-func enumerateSubscriptions(token string) error {
-	ctx := context.Background()
-	url := "https://management.azure.com/subscriptions?api-version=2020-01-01"
-
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-	if err != nil {
-		return fmt.Errorf("failed to create request: %w", err)
-	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return fmt.Errorf("request failed: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("non-OK HTTP status: %s", resp.Status)
-	}
-
-	var data map[string]interface{}
-	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		return fmt.Errorf("failed to decode response: %w", err)
-	}
-
-	pretty, _ := json.MarshalIndent(data, "", "  ")
-	fmt.Println(string(pretty))
-	return nil
 }
 
 func enumerateStorageAccounts(token, subscriptionID string) error {
