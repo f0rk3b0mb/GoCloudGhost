@@ -7,12 +7,26 @@ I developed it during a recent cloud penetration testing exercise where i had to
 
 ## ✨ Features
 
-- Enumerate blobs from Azure Storage accounts using access keys
-- Enumerate Azure Management API resources using access tokens
+### Azure
+
+- Azure service account token authentication
+- Azure access token authentication
+- Enumerate blobs from azure storage accounts using access keys
 - Retrieve storage account shared keys.
-- List blob container contents with shared keys.
+- Enumerate subscription info
+- Enumerate storage accounts
+- Enumerate resource groups
+- Enumerate role assignments
+- Blob storage enumeration
+- Blob storage item download
 - Extensible modular architecture — more cloud modules coming soon
 
+### Gcp
+
+- List GCP Compute Instances
+- List GCP Storage Buckets
+- Enumrate GCP Token Permission
+- Extensible modular architecture — more cloud modules coming soon
 ---
 
 ## 📦 Modules
