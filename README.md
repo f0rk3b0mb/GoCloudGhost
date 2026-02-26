@@ -33,6 +33,12 @@ I developed it during a recent cloud penetration testing exercise where i had to
 
 ### Azure Management API Enumeration
 
+## Service Account Authentication
+
+```
+GoCloudGhost azure auth --client-id <appId> --client-secret <secret> --tenant-id <tenantId>
+```
+
 ### Enumerate Subscription info
 
 ```bash
@@ -97,7 +103,11 @@ GoCloudGhost gcp enum --token <ouath-token>  --project-id <project-id>
 
 
 ## 🔧 Installation
-Clone the repository:
+
+You can compile using the steps below or download the pre-compiled binay from [releases page](https://github.com/f0rk3b0mb/GoCloudGhost/releases)
+
+
+- Clone the repository:
 
 Youll need to have the golang compiler installed and in your PATH
 
@@ -107,10 +117,10 @@ Install compiler from [https://go.dev/doc/install](https://go.dev/doc/install)
 git clone https://github.com/f0rk3b0mb/GoCloudGhost.git
 cd GoCloudGhost
 ```
-Build the binary:
+- Build the binary:
 
 ```bash
-go build -o bin/GoCloudGhost
+go build .
 ```
 
 ## 🛡️ Disclaimer
