@@ -16,7 +16,8 @@ I developed it during a recent cloud penetration testing exercise where i had to
 - Enumerate subscription info
 - Enumerate storage accounts
 - Enumerate resource groups
-- Enumerate role assignments
+- Enumerate role assignments  and definitions
+- Enumerate keyvaults
 - Blob storage enumeration
 - Blob storage item download
 - Extensible modular architecture — more cloud modules coming soon
@@ -35,32 +36,46 @@ I developed it during a recent cloud penetration testing exercise where i had to
 
 ## Service Account Authentication
 
-```
+```bash
 GoCloudGhost azure auth --client-id <appId> --client-secret <secret> --tenant-id <tenantId>
 ```
 
 ### Enumerate Subscription info
 
+#### Run this first to populate env variables
+
 ```bash
 GoCloudGhost azure management --token <jwt-accesss-key> --subscriptions
+```
+
+### Enumerate Key Vaults
+
+```bash
+GoCloudGhost azure management --keyvaults
+```
+
+### Enumerate Policies
+
+```bash
+GoCloudGhost azure management --policies
 ```
 
 ### Enumerate Storage Accounts
 
 ```bash
-GoCloudGhost azure management --subscription <subscription-id> --token <jwt-accesss-key>
+GoCloudGhost azure management --storage
 ```
 
 ### Enumerate Resource Groups
 
 ```bash
-GoCloudGhost  azure management --subscription <sunscription-id> --token <jwt-accesss-key> --groups
+GoCloudGhost  azure management --groups
 ```
 
 ### Enumerate Role Assignments 
 
 ```bash
-GoCloudGhost azure management --subscription <sunscription-id> --token <jwt-accesss-key> --roles
+GoCloudGhost azure management --roles
 ```
 
 ### Blob Storage Enumeration 
@@ -140,7 +155,7 @@ Gcp Sercive Account Token Impersonate
 
 AKS, App Services, Key Vault discovery
 
-Azure role/permission auditing
+✅ Azure role/permission auditing
 
 Support for other cloud providers
 
