@@ -1,7 +1,7 @@
 package azure
 
 import (
-	"github.com/f0rk3b0mb/GoCloudGhost/auth"
+	"github.com/f0rk3b0mb/GoCloudGhost/azure/auth"
 	blob "github.com/f0rk3b0mb/GoCloudGhost/azure/blob"
 	management "github.com/f0rk3b0mb/GoCloudGhost/azure/enum"
 	"github.com/spf13/cobra"

@@ -1,0 +1,21 @@
+readd subscription enumeration  ---------------   done
+
+
+make role enumeration for verbose , currently is it filtering out  most data , replace url with 
+
+```curl -s -X GET \
+"https://management.azure.com/subscriptions/4ebaca3d-8642-4a01-b544-e62550598323/providers/Microsoft.Authorization/roleDefinitions?api-version=2022-04-01" \
+-H "Authorization: Bearer $access_token"```   ------------   done
+
+
+
+get role names ---  allow user to dig deeper into a role   ------- done
+
+
+
+format output    --done
+
+
+
+
+cant read sub when token is specified   ---done
